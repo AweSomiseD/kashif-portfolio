@@ -1,0 +1,218 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Recoleta";
+  src: url("./assets/fonts/Recoleta-RegularDEMO.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body,
+#root {
+  min-width: 320px;
+  overflow-x: clip;
+}
+
+@media (min-width: 1024px) {
+  .profile-scroll-target {
+    scroll-margin-top: max(6.5rem, calc(100svh - 38.5rem));
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 720px) {
+  .hero-section {
+    padding-top: 0.5rem;
+  }
+}
+
+img,
+svg,
+iframe {
+  max-width: 100%;
+}
+
+/* ===== Dark mode overrides ===== */
+.dark body {
+  background-color: #0a0a0a;
+  color: #f3f4f6;
+}
+
+/* Backgrounds: white -> black */
+.dark .bg-white {
+  background-color: #0a0a0a;
+}
+.dark .bg-\[\#f0f1f3\] {
+  background-color: #171717;
+}
+.dark .bg-\[\#D9D9D9\],
+.dark .bg-\[\#d9d9d9\] {
+  background-color: #2a2a2a;
+}
+
+/* Black parts -> white (CTA panel, buttons) */
+.dark .bg-black {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Text: dark -> white */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700 {
+  color: #f3f4f6;
+}
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: #a1a1aa;
+}
+.dark .text-gray-400 {
+  color: #71717a;
+}
+
+/* Pastel/gradient cards: apne original colors aur dark text rakho */
+.dark .keep-colors,
+.dark .keep-colors * {
+  color: #1f2937;
+}
+
+/* Navbar: active text + underline white */
+.dark nav .text-black,
+.dark nav a.active,
+.dark nav a[aria-current="page"] {
+  color: #ffffff;
+}
+.dark nav .border-black {
+  border-color: #ffffff;
+}
+.dark nav .bg-black {
+  background-color: #ffffff;
+}
+.dark nav a.active::after,
+.dark nav a[aria-current="page"]::after {
+  background-color: #ffffff;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4 {
+  color: #f3f4f6;
+}
+.dark .text-black {
+  color: #f3f4f6;
+}
+
+/* ===== Hand-drawn arrow animation ===== */
+.draw-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.draw-play .draw-path {
+  animation: draw 0.9s ease-out forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.fade-up {
+  opacity: 0;
+}
+
+.draw-play .fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes portrait-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.portrait-in {
+  animation: portrait-in 0.9s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-in,
+  .draw-path,
+  .fade-up {
+    animation: none !important;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ===== Navbar underline slide ===== */
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ===== Hero lines ===== */
+.hero-line {
+  opacity: 0;
+  animation: fade-up 0.7s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line,
+  .draw-path,
+  .fade-up {
+    animation: none !important;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Native dropdown color scheme */
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
